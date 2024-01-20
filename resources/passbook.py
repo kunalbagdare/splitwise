@@ -13,6 +13,11 @@ class UserExpenses(MethodView):
 
     @blp.response(200, UserPassbookSchema(many=True))
     def get(self, user_id):
+        """
+        The /expenses/<user_id> endpoint retrieves all entries from the PassbookModel for a given user, including both payer
+        and payee entries, and returns them as a list of dictionaries.
+        
+        """
 
         payer_expense_ids = set(entry.expense_id for entry in PassbookModel.query.filter_by(payer_id=user_id).all())
         payee_entries = PassbookModel.query.filter_by(payee_id=user_id).all()
@@ -49,6 +54,9 @@ class Balances(MethodView):
 
     @blp.response(200, dict)
     def get(self):
+        """
+        The /balances endpoint retrieves user balances and simplifies them if requested.
+        """
 
         simplify = request.args.get('simplify', type=bool)
 

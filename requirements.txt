@@ -1,0 +1,6 @@
+celery==5.3.6
+Flask==3.0.0
+flask-smorest==0.42.3
+Flask-SQLAlchemy==3.1.1
+marshmallow==3.20.2
+SQLAlchemy==2.0.25

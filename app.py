@@ -9,6 +9,10 @@ from resources.passbook import blp as PassbookBlueprint
 
 
 def create_app():
+    """
+    The `create_app` function creates and configures a Flask application with various settings and
+    blueprints for different routes.
+    """
 
     app = Flask(__name__)
 
@@ -24,9 +28,11 @@ def create_app():
     db.init_app(app)
     api = Api(app)
 
+    # Initialize the database
     with app.app_context():
         db.create_all()
 
+    # Register blueprints/routes
     api.register_blueprint(UserBlueprint)
     api.register_blueprint(StatusBlueprint)
     api.register_blueprint(ExpenseBlueprint)

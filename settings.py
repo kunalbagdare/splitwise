@@ -8,3 +8,6 @@ POSTGRES_PORT = os.getenv("POSTGRES_PORT", 5432)
 
 MAILGUN_DOMAIN = os.getenv("MAILGUN_DOMAIN")
 MAILGUN_API_KEY = os.getenv("MAILGUN_API_KEY")
+
+CELERY_BORKER_URL = os.getenv("CELERY_BORKER_URL","redis://localhost:6379/0")
+CELERY_BACKEND_URL = os.getenv("CELERY_BACKEND_URL","redis://localhost:6379/0")

@@ -14,6 +14,10 @@ class AddUser(MethodView):
     @blp.arguments(UserSchema)
     @blp.response(201,UserSchema)
     def post(self, user_data):
+        """
+        The /add-user endpoint adds a new user to the database and returns the user object, handling potential
+        errors along the way.
+        """
         user = UserModel(**user_data)
         try:
             db.session.add(user)

@@ -17,6 +17,11 @@ class AddExpense(MethodView):
     @blp.arguments(ExpenseSchema)
     @blp.response(201,ExpenseSchema)
     def post(self, expense_data):
+        """
+        The /add-expense endpoint takes in expense data, calculates individual shares based on the expense type, adds
+        entries to the Passbook table, adds an expense entry to the Expense table, sends an
+        email asynchronously, and returns the expense.
+        """
 
         expense_type = expense_data['expense_type'].value
         try:
