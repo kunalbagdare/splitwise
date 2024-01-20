@@ -3,6 +3,16 @@
 A simple backend application to add and manage expenses for users.
 
 ---
+### Technologies Used -
+
+- **Flask:** A micro web framework.
+- **SQLAlchemy:** An ORM for SQL operations.
+- **Flask-Smorest:** An extension for Flask that simplifies the creation of REST APIs.
+- **Marshmallow:** An object serialization and validation library.
+- **Celery:** A distributed task queue for handling asynchronous tasks.
+- **RedBeat:** A Celery Beat Scheduler that stores the scheduled tasks and runtime metadata in Redis
+---
+
 ### API Endpoints -
 
 1. **Check Status/Health**
@@ -51,3 +61,7 @@ A simple backend application to add and manage expenses for users.
    - `date`: Date and time when the expense was incurred.
    - `amount`: Total amount of the expense.
    - `expense_type`: Type of expense (EQUAL, EXACT, PERCENT).
+
+### Emailing Service -
+- Celery task sends an email everytime an expense is added.
+- Redbeat sends a weekly email via Celery task to users with their respective amount dues.
