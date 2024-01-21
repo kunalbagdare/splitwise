@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekly Email</title>
+</head>
+<body>
+    <h2>Weekly Email Summary</h2>
+    <p>Hello {{payee_name}},</p>
+    <p>Here is the summary of amounts you owe:</p>
+    
+    <ul>
+        {% for key, value in output.items() %}
+            <li><strong>{{ key }}:</strong> {{ value }} </li>
+        {% endfor %}
+    </ul>
+
+    <p>Thank you for using our splitwise application!</p>
+</body>
+</html>

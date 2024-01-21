@@ -9,8 +9,7 @@ A simple backend application to add and manage expenses for users.
 - **SQLAlchemy:** An ORM for SQL operations.
 - **Flask-Smorest:** An extension for Flask that simplifies the creation of REST APIs.
 - **Marshmallow:** An object serialization and validation library.
-- **Celery:** A distributed task queue for handling asynchronous tasks.
-- **RedBeat:** A Celery Beat Scheduler that stores the scheduled tasks and runtime metadata in Redis
+- **Celery:** A distributed task queue for handling asynchronous tasks and run scheduling tasks.
 ---
 
 ### API Endpoints -
@@ -64,4 +63,4 @@ A simple backend application to add and manage expenses for users.
 
 ### Emailing Service -
 - Celery task sends an email everytime an expense is added.
-- Redbeat sends a weekly email via Celery task to users with their respective amount dues.
+- Celery scheduler sends a weekly email via Celery task to users with their respective amount dues.
