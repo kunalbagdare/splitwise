@@ -3,6 +3,10 @@
 A simple backend application to add and manage expenses for users.
 
 ---
+## Architecture Diagram
+
+![System Architecture Diagram](./diagram.png)
+---
 ### Setup -
 #### Clone the repository
 ```
