@@ -3,6 +3,16 @@
 A simple backend application to add and manage expenses for users.
 
 ---
+### Setup -
+```
+# Commands -
+
+1. git clone https://github.com/kunalbagdare/splitwise.git
+2. add credentials to .env
+2. flask run
+3. celery -A scheduler.tasks worker --loglevel=info
+```
+---
 ### Technologies Used -
 
 - **Flask:** A micro web framework.
@@ -34,7 +44,12 @@ A simple backend application to add and manage expenses for users.
    - **Method:** GET
    - **Description:** Get a list of expenses for a specific user.
 
-5. **Get Balances**
+5. **Get Balance for a User**
+   - **URL:** `/balance/<user_id>`
+   - **Method:** GET
+   - **Description:** Get a balance for a specific user.
+
+6. **Get Balances**
    - **URL:** `/balances`
    - **Method:** GET
    - **Description:** Get balances for all users. Supports optional query parameter `simplify` (true/false) to simplify balances.

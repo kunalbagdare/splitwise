@@ -44,6 +44,8 @@ def create_and_send_weekly_emails():
         payee_email = payee_entries[0].payee.email
 
         for entry in payee_entries:
+            if payee_email == payer_name:
+                continue
             payer_name = entry.payer.name
             if payer_name not in final_data_for_user:
                 final_data_for_user[payer_name] = entry.amount

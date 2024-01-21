@@ -6,8 +6,7 @@ celery = Celery(
     "tasks",
     broker=settings.CELERY_BORKER_URL,
     backend=settings.CELERY_BACKEND_URL,
-    include=["scheduler.tasks"],
-    broker_connection_retry=True)
+    include=["scheduler.tasks"])
 
 
 celery.conf.beat_schedule = {

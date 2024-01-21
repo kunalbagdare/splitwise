@@ -73,6 +73,7 @@ class AddExpense(MethodView):
 
 
             expense_data["id"] = expense_id
+            del expense_data["user_ids"]
             expense = ExpenseModel(**expense_data)
             db.session.add(expense)
             db.session.commit()

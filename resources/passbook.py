@@ -3,7 +3,7 @@ from flask_smorest import Blueprint, abort
 from flask import jsonify,request
 from schema import UserPassbookSchema
 from models import PassbookModel, ExpenseModel, UserModel
-# from database import db
+from utils import simplify_expenses
 
 blp = Blueprint("passbook", __name__)
 
@@ -49,6 +49,42 @@ class UserExpenses(MethodView):
 
 
 
+@blp.route("/balance/<user_id>")
+class Balances(MethodView):
+
+    @blp.response(200, dict)
+    def get(self,user_id):
+        """
+        The /balance/<user_id> endpoint retrieves the balances of all users for a particular user excluding users with zero balances.
+
+        """
+
+        users = UserModel.query.all()
+
+        all_user_balances = {}
+
+        for user in users:
+            if user.id == user_id:
+                continue
+
+            payer_expense_ids = set(entry.expense_id for entry in PassbookModel.query.filter_by(payer_id=user.id).all())
+            payee_entries = PassbookModel.query.filter_by(payee_id=user.id).all()
+
+            user_balance = 0.0
+
+            for expense_id in payer_expense_ids:
+                expense = ExpenseModel.query.get(expense_id)
+                user_balance += expense.amount
+
+            for entry in payee_entries:
+                user_balance -= entry.amount
+
+            if user_balance != 0:
+                all_user_balances[user.name] = user_balance
+
+        return jsonify(all_user_balances), 200
+
+
 @blp.route("/balances")
 class Balances(MethodView):
 
@@ -60,29 +96,31 @@ class Balances(MethodView):
 
         simplify = request.args.get('simplify', type=bool)
 
+        users = UserModel.query.all()
+        all_user_balances = {}
+
+        for user in users:
+            user_balance = 0.0
+
+            payer_expense_ids = set(entry.expense_id for entry in PassbookModel.query.filter_by(payer_id=user.id).all())
+            payee_entries = PassbookModel.query.filter_by(payee_id=user.id).all()
+
+            for expense_id in payer_expense_ids:
+                expense = ExpenseModel.query.get(expense_id)
+                user_balance += expense.amount
+
+            for entry in payee_entries:
+                user_balance -= entry.amount
+            
+            # all_user_balances[user.id] = user_balance
+            all_user_balances[user.name] = user_balance
+
         if simplify:
-            all_user_balances = {}
-            # TODO
-            pass
-
-        else:
-            users = UserModel.query.all()
-            all_user_balances = {}
-
-            for user in users:
-                user_balance = 0.0
-
-                payer_expense_ids = set(entry.expense_id for entry in PassbookModel.query.filter_by(payer_id=user.id).all())
-                payee_entries = PassbookModel.query.filter_by(payee_id=user.id).all()
-
-                for expense_id in payer_expense_ids:
-                    expense = ExpenseModel.query.get(expense_id)
-                    user_balance += expense.amount
-
-                for entry in payee_entries:
-                    user_balance -= entry.amount
-                
-                all_user_balances[user.id] = user_balance
-
+            simplified_balances = simplify_expenses(all_user_balances)
+            return jsonify(simplified_balances), 200
 
         return jsonify(all_user_balances), 200
+
+
+
+

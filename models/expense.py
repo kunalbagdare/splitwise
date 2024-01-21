@@ -1,7 +1,6 @@
 from database import db
 from datetime import datetime
 from enum import Enum
-from sqlalchemy.dialects.postgresql import JSON
 
 class ExpenseType(Enum):
 
@@ -20,5 +19,4 @@ class ExpenseModel(db.Model):
     date = db.Column(db.DateTime(timezone=True), default=datetime.now())
     amount = db.Column(db.Float)
     expense_type = db.Column(db.Enum(ExpenseType))
-    user_ids = db.Column(JSON, nullable=True)
     passbook_entries = db.relationship("PassbookModel", back_populates="expense")

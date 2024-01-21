@@ -22,13 +22,12 @@ def create_app():
     app.config["OPENAPI_URL_PREFIX"] = "/"
     app.config["OPENAPI_SWAGGER_UI_PATH"] = "/swagger-ui"
     app.config["OPENAPI_SWAGGER_UI_URL"] = "https://cdn.jsdelivr.net/npm/swagger-ui-dist/"
-    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///test.db" # local
+    app.config["SQLALCHEMY_DATABASE_URI"] = settings.create_connection_string()
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
     db.init_app(app)
     api = Api(app)
 
-    # Initialize the database
     with app.app_context():
         db.create_all()
 
