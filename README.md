@@ -4,13 +4,21 @@ A simple backend application to add and manage expenses for users.
 
 ---
 ### Setup -
+#### Clone the repository
 ```
-# Commands -
-
-1. git clone https://github.com/kunalbagdare/splitwise.git
-2. add credentials to .env
-2. flask run
-3. celery -A scheduler.tasks worker --loglevel=info
+git clone https://github.com/kunalbagdare/splitwise.git
+```
+#### Create .env and add credentials
+```
+add credentials to .env
+```
+#### Run the flask web-server
+```
+flask run
+```
+#### Run the celery server
+```
+celery -A scheduler.tasks worker --loglevel=info
 ```
 ---
 ### Technologies Used -
